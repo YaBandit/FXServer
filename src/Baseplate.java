@@ -1,9 +1,7 @@
-import UrlConnection.BasicConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -13,9 +11,6 @@ import java.text.SimpleDateFormat;
 public class Baseplate {
 
     public static void main(String[] args) throws IOException {
-
-        BasicConnection basicConnection = new BasicConnection();
-        URLConnection connection = basicConnection.connectToWebAddress("http://finance.yahoo.com/d/quotes.csv?s=msft&f=price");
 
         getDataSnapshot();
 
@@ -29,7 +24,7 @@ public class Baseplate {
 
         StringBuilder reqUrl = new StringBuilder(fundamentalDataUrl);
         reqUrl.append("?s=ARM.L");
-        reqUrl.append("&f=va2j1r");
+        reqUrl.append("&Yahoo=va2j1r");
 
         BufferedReader content = new BufferedReader(new InputStreamReader(new URL(reqUrl.toString()).openStream()));
         String fields[] = content.readLine().split(",");
