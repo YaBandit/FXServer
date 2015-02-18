@@ -3,7 +3,7 @@ package YahooMarketData;
 /**
  * Created by Dylan on 18/02/2015.
  */
-public class ApiOperators {
+public class YahooApiOperators {
 
     public static final String ask = "a";
     public static final String bid = "b";

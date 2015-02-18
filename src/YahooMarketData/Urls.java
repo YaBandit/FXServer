@@ -5,6 +5,6 @@ package YahooMarketData;
  */
 public class Urls {
 
-    public static final String apiAdress = "http://finance.yahoo.com/d/quotes.csv?";
+    public static final String yahooApiAdress = "http://finance.yahoo.com/d/quotes.csv?";
 
 }

@@ -16,6 +16,7 @@ public class Baseplate {
 
         MarketDataProcessor marketDataProcessor = new MarketDataProcessor();
         marketDataProcessor.PopulateProcessors(args[0]);
+        marketDataProcessor.ProcessMarketData();
 
 
     }
