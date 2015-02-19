@@ -20,6 +20,6 @@ public class LordOfTheBeans extends BasicBean {
     }
 
     public void instantiateMasterBeans() {
-        childBeans.add(new AssetBean(AssetClass.CURRENCYPAIR.toString(), AssetClass.CURRENCYPAIR));
+        childBeans.add(new CurrencyPairMasterBean());
     }
 }

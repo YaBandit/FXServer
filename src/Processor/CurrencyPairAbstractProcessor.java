@@ -13,7 +13,8 @@ public abstract class CurrencyPairAbstractProcessor {
     public void addDataToStore (CurrencySymbols symbol1, CurrencySymbols symbol2, double ratio2) {
         CurrencyPairBean currencyPairBean = (CurrencyPairBean) currencyPairBeanMaster.getChildBean(symbol1.toString() + symbol2.toString());
         if (currencyPairBean == null) {
-            currencyPairBeanMaster.createChildBean(symbol1, symbol2, 1, ratio2);
+            currencyPairBean = new CurrencyPairBean(symbol1, symbol2, 1, ratio2);
+            currencyPairBeanMaster.addChildBean(currencyPairBean);
         }
         updateDataStore(currencyPairBean, ratio2);
     }

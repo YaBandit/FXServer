@@ -10,16 +10,19 @@ public class Baseplate {
 
     public static void main(String[] args) throws IOException {
 
+        marketDataStore = LordOfTheBeans.getLordOfTheBeans();
+        instantiateMarketData();
+
         MarketDataProcessor marketDataProcessor = new MarketDataProcessor();
         marketDataProcessor.PopulateProcessors(args[0]);
         marketDataProcessor.ProcessMarketData();
 
-        marketDataStore = LordOfTheBeans.getLordOfTheBeans();
+
     }
 
     private static LordOfTheBeans marketDataStore;
 
-    private void instantiateMarketData() {
+    private static void instantiateMarketData() {
         marketDataStore.instantiateMasterBeans();
     }
 

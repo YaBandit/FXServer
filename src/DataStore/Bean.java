@@ -33,4 +33,8 @@ public abstract class Bean {
         }
         return null;
     }
+
+    public void addChildBean(Bean bean) {
+        childBeans.add(bean);
+    }
 }
