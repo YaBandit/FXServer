@@ -1,5 +1,7 @@
 import DataStore.LordOfTheBeans;
 import Processor.MarketDataProcessor;
+import Sockets.SocketController;
+
 import java.io.IOException;
 
 
@@ -13,9 +15,12 @@ public class Baseplate {
         marketDataStore = LordOfTheBeans.getLordOfTheBeans();
         instantiateMarketData();
 
-        MarketDataProcessor marketDataProcessor = new MarketDataProcessor();
-        marketDataProcessor.PopulateProcessors(args[0]);
-        marketDataProcessor.ProcessMarketData();
+        //MarketDataProcessor marketDataProcessor = new MarketDataProcessor();
+        //marketDataProcessor.PopulateProcessors(args[0]);
+        //marketDataProcessor.ProcessMarketData();
+
+        SocketController sc = new SocketController();
+        sc.StartSockets();
 
     }
 
