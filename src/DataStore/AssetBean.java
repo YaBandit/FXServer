@@ -3,7 +3,7 @@ package DataStore;
 /**
  * Created by Dylan on 19/02/2015.
  */
-public abstract class AssetBean extends BasicBean {
+public class AssetBean extends BasicBean {
 
     private AssetClass assetClass;
 

@@ -17,6 +17,7 @@ public class YahooUrls {
     public Map<String,String> getCurrencyUrlCalls() { return currencyUrlCalls; }
 
     public static final String yahooApiAdress = "http://finance.yahoo.com/d/quotes.csv?";
+    public static final String historicalDataUrl = "http://ichart.finance.yahoo.com/table.csv";
 
     public YahooUrls() {
         currencyBuilder(CurrencySymbols.GBP, CurrencySymbols.USD);

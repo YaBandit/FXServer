@@ -1,5 +1,7 @@
 package Processor;
 
+import Library.MarketDataProvidersEnum;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,13 +10,16 @@ import java.util.List;
  */
 public class MarketDataProcessor {
 
-    List<Processor> processors = new ArrayList<Processor>();
+    private final static String SEPERATOR = ",";
+
+    List<Processor> processors = new ArrayList<>();
 
     public void PopulateProcessors (String dataProviders) {
-        final String[] dataProvidersArray = dataProviders.split(",");
+        final String[] dataProvidersArray = dataProviders.split(SEPERATOR);
         for (String provider : dataProvidersArray){
-            switch (provider) {
-                case "YAHOO":
+            final MarketDataProvidersEnum dataProvider = MarketDataProvidersEnum.valueOf(provider);
+            switch (dataProvider) {
+                case YAHOO:
                     YahooProcessor yahooProcessor = new YahooProcessor();
                     processors.add(yahooProcessor);
                     break;

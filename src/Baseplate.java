@@ -1,5 +1,5 @@
+import DataStore.LordOfTheBeans;
 import Processor.MarketDataProcessor;
-
 import java.io.IOException;
 
 
@@ -14,9 +14,13 @@ public class Baseplate {
         marketDataProcessor.PopulateProcessors(args[0]);
         marketDataProcessor.ProcessMarketData();
 
-
+        marketDataStore = LordOfTheBeans.getLordOfTheBeans();
     }
 
-    private static final String historicalDataUrl = "http://ichart.finance.yahoo.com/table.csv";
+    private static LordOfTheBeans marketDataStore;
+
+    private void instantiateMarketData() {
+        marketDataStore.instantiateMasterBeans();
+    }
 
 }

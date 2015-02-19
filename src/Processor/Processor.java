@@ -12,6 +12,4 @@ public interface Processor {
 
     public void GetMarketData() throws IOException;
 
-    public String[] PingCurrencyURL(String pair, String URL) throws IOException;
-
 }

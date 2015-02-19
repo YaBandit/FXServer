@@ -13,12 +13,12 @@ import java.util.*;
 /**
  * Created by Dylan on 18/02/2015.
  */
-public class YahooProcessor implements Processor{
+public class YahooProcessor extends CurrencyPairAbstractProcessor implements Processor,CurrencyPairProcessor{
 
     private final Map<String,String> currencyUrlCalls = YahooUrls.getINSTANCE().getCurrencyUrlCalls();
 
     // WRONG WAY OF STORING DATA
-    private Map<String, String[]> currencyMarketData = new HashMap<String, String[]>();
+    private Map<String, String[]> currencyMarketData = new HashMap<>();
 
     @Override
     public void ProcessMarketData() {
@@ -49,15 +49,13 @@ public class YahooProcessor implements Processor{
         Iterator iterator = currencyUrlCalls.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry pair = (Map.Entry) iterator.next();
-            String[] result = PingCurrencyURL( (String) pair.getKey(), (String) pair.getValue());
+            String[] result = PingCurrencyPairAPI((String) pair.getKey(), (String) pair.getValue());
             currencyMarketData.put((String) pair.getKey(), result);
         }
     }
 
-
-
     @Override
-    public String[] PingCurrencyURL(String pair, String url) {
+    public String[] PingCurrencyPairAPI(String pair, String url) {
         InputStream connection = null;
         String[] fields = new String[4];
         String[] pairArray = pair.split(YahooApiOperators.colon);
@@ -76,8 +74,6 @@ public class YahooProcessor implements Processor{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return fields;
-
     }
 }
