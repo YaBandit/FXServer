@@ -17,7 +17,6 @@ public class Baseplate {
         marketDataProcessor.PopulateProcessors(args[0]);
         marketDataProcessor.ProcessMarketData();
 
-
     }
 
     private static LordOfTheBeans marketDataStore;

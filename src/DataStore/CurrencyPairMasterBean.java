@@ -12,12 +12,12 @@ public class CurrencyPairMasterBean extends AssetBean {
     }
 
     public void createBean (CurrencySymbols currencySymbol1, CurrencySymbols currencySymbol2) {
-        CurrencyPairBean childBean = new CurrencyPairBean(currencySymbol1, currencySymbol2);
+        final CurrencyPairBean childBean = new CurrencyPairBean(currencySymbol1, currencySymbol2);
         childBeans.add(childBean);
     }
 
     public void createChildBean (CurrencySymbols currencySymbol1, CurrencySymbols currencySymbol2, double ratio1, double ratio2) {
-        CurrencyPairBean childBean = new CurrencyPairBean(currencySymbol1, currencySymbol2, ratio1, ratio2);
+        final CurrencyPairBean childBean = new CurrencyPairBean(currencySymbol1, currencySymbol2, ratio1, ratio2);
         childBeans.add(childBean);
     }
 

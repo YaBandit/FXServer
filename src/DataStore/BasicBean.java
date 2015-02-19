@@ -11,7 +11,7 @@ public class BasicBean extends Bean implements BeanInterface {
 
     @Override
     public void createChildBean(String beanName) {
-        Bean childBean = new BasicBean(beanName);
+        final Bean childBean = new BasicBean(beanName);
         childBeans.add(childBean);
     }
 }
