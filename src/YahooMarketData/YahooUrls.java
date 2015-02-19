@@ -1,10 +1,7 @@
 package YahooMarketData;
 
 import Library.CurrencySymbols;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,7 +42,7 @@ public class YahooUrls {
         currencyBuilder(CurrencySymbols.AUD, CurrencySymbols.CAD);
     }
 
-    public void currencyBuilder(String currency1, String currency2) {
+    public void currencyBuilder(CurrencySymbols currency1, CurrencySymbols currency2) {
         StringBuilder url = new StringBuilder(YahooUrls.yahooApiAdress);
         url.append(YahooApiOperators.currencyPrecursor);
         url.append(YahooApiOperators.symbolEquals);
@@ -53,7 +50,7 @@ public class YahooUrls {
         url.append(currency2);
         url.append(YahooApiOperators.equalsX);
 
-        StringBuilder currencyPair = new StringBuilder(currency1);
+        StringBuilder currencyPair = new StringBuilder(currency1.getCurrencySymbol());
         currencyPair.append(YahooApiOperators.colon);
         currencyPair.append(currency2);
         currencyUrlCalls.put(currencyPair.toString(), url.toString());
