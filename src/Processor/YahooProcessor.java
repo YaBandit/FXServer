@@ -1,5 +1,6 @@
 package Processor;
 
+import Library.CurrencySymbols;
 import YahooMarketData.YahooApiOperators;
 import YahooMarketData.YahooUrls;
 
@@ -18,7 +19,7 @@ public class YahooProcessor extends CurrencyPairAbstractProcessor implements Pro
     private final Map<String,String> currencyUrlCalls = YahooUrls.getINSTANCE().getCurrencyUrlCalls();
 
     // WRONG WAY OF STORING DATA
-    private Map<String, String[]> currencyMarketData = new HashMap<>();
+    //private Map<String, String[]> currencyMarketData = new HashMap<>();
 
     @Override
     public void ProcessMarketData() {
@@ -32,7 +33,7 @@ public class YahooProcessor extends CurrencyPairAbstractProcessor implements Pro
         GetMarketData();
 
         // TEMP PRINTING
-        Iterator iterator = currencyMarketData.entrySet().iterator();
+        /*Iterator iterator = currencyMarketData.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry pair = (Map.Entry) iterator.next();
             StringBuilder output = new StringBuilder();
@@ -41,7 +42,7 @@ public class YahooProcessor extends CurrencyPairAbstractProcessor implements Pro
                 output.append(":");
             }
             System.out.println(output);
-        }
+        }*/
     }
 
     @Override
@@ -50,7 +51,8 @@ public class YahooProcessor extends CurrencyPairAbstractProcessor implements Pro
         while (iterator.hasNext()) {
             Map.Entry pair = (Map.Entry) iterator.next();
             String[] result = PingCurrencyPairAPI((String) pair.getKey(), (String) pair.getValue());
-            currencyMarketData.put((String) pair.getKey(), result);
+            processData(result);
+            //currencyMarketData.put((String) pair.getKey(), result);
         }
     }
 
@@ -76,4 +78,13 @@ public class YahooProcessor extends CurrencyPairAbstractProcessor implements Pro
         }
         return fields;
     }
+
+    public void processData(String[] result) {
+        CurrencySymbols symbol1 = CurrencySymbols.valueOf(result[0]);
+        CurrencySymbols symbol2 = CurrencySymbols.valueOf(result[1]);
+        double ratio = Double.parseDouble(result[3]);
+        addDataToStore(symbol1, symbol2, ratio);
+    }
+
+
 }

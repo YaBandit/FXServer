@@ -7,14 +7,14 @@ import Library.CurrencySymbols;
  */
 public class CurrencyPairBean extends AssetBean {
 
-    public CurrencyPairBean(String beanName, CurrencySymbols currencySymbol1, CurrencySymbols currencySymbol2) {
-        super(beanName, AssetClass.CURRENCYPAIR);
+    public CurrencyPairBean(CurrencySymbols currencySymbol1, CurrencySymbols currencySymbol2) {
+        super(currencySymbol1.toString() + currencySymbol2.toString(), AssetClass.CURRENCYPAIR);
         this.currencySymbol1 = currencySymbol1;
         this.currencySymbol2 = currencySymbol2;
     }
 
-    public CurrencyPairBean(String beanName, CurrencySymbols currencySymbol1, CurrencySymbols currencySymbol2, double ratio1, double ratio2) {
-        super(beanName, AssetClass.CURRENCYPAIR);
+    public CurrencyPairBean(CurrencySymbols currencySymbol1, CurrencySymbols currencySymbol2, double ratio1, double ratio2) {
+        super(currencySymbol1.toString() + currencySymbol2.toString(), AssetClass.CURRENCYPAIR);
         this.currencySymbol1 = currencySymbol1;
         this.currencySymbol2 = currencySymbol2;
         this.currencyRatio1 = ratio1;
@@ -38,7 +38,14 @@ public class CurrencyPairBean extends AssetBean {
     public double getCurrencyRatio2() { return currencyRatio2; }
     public void setCurrencyRatio2(double currencyRatio2) { this.currencyRatio2 = currencyRatio2; }
 
+    public void priceUpdate(double ratio1, double ratio2) {
+        currencyRatio1 = ratio1;
+        currencyRatio2 = ratio2;
+    }
 
+    public void priceUpdate(double ratio2) {
+        currencyRatio2 = ratio2;
+    }
 
 
 }
