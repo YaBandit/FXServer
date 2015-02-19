@@ -1,17 +1,24 @@
 package Processor;
 
-import YahooMarketData.Urls;
+import YahooMarketData.YahooApiOperators;
+import YahooMarketData.YahooUrls;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.*;
 
 /**
  * Created by Dylan on 18/02/2015.
  */
 public class YahooProcessor implements Processor{
+
+    private final Map<String,String> currencyUrlCalls = YahooUrls.getINSTANCE().getCurrencyUrlCalls();
+
+    // WRONG WAY OF STORING DATA
+    private Map<String, String[]> currencyMarketData = new HashMap<String, String[]>();
 
     @Override
     public void ProcessMarketData() {
@@ -24,29 +31,53 @@ public class YahooProcessor implements Processor{
          */
         GetMarketData();
 
+        // TEMP PRINTING
+        Iterator iterator = currencyMarketData.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry pair = (Map.Entry) iterator.next();
+            StringBuilder output = new StringBuilder();
+            for (String part : (String[]) pair.getValue()) {
+                output.append(part);
+                output.append(":");
+            }
+            System.out.println(output);
+        }
     }
 
     @Override
     public void GetMarketData() {
+        Iterator iterator = currencyUrlCalls.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry pair = (Map.Entry) iterator.next();
+            String[] result = PingCurrencyURL( (String) pair.getKey(), (String) pair.getValue());
+            currencyMarketData.put((String) pair.getKey(), result);
+        }
+    }
 
-        StringBuilder nonsense = new StringBuilder(Urls.yahooApiAdress);
-        //nonsense.append("s=ARM.L");
-        nonsense.append("s=XOM+BBDb.TO+JNJ+MSFT&f=snd1l1yr");
+
+
+    @Override
+    public String[] PingCurrencyURL(String pair, String url) {
+        InputStream connection = null;
+        String[] fields = new String[4];
+        String[] pairArray = pair.split(YahooApiOperators.colon);
+        fields[0] = pairArray[0];
+        fields[1] = pairArray[1];
 
         try {
-            PingURL(nonsense.toString());
+            connection = new URL(url).openStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(connection);
+            BufferedReader content = new BufferedReader(inputStreamReader);
+            String[] result = content.readLine().split(",");
+            content.close();
+
+            fields[2] = "1";
+            fields[3] = result[1];
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-    }
+        return fields;
 
-    @Override
-    public void PingURL(String url) throws IOException {
-        InputStream connection = new URL(url).openStream();
-        InputStreamReader inputStreamReader = new InputStreamReader(connection);
-        BufferedReader content = new BufferedReader(inputStreamReader);
-        String fields[] = content.readLine().split(",");
-        content.close();
     }
 }

@@ -12,4 +12,9 @@ public class YahooApiOperators {
     public static final String dayLow = "g";
     public static final String volume = "v";
 
+    public static final String currencyPrecursor = "e=.csv&f=c4l1&";
+    public static final String symbolEquals = "s=";
+    public static final String equalsX = "=X";
+    public static final String colon = ":";
+
 }
