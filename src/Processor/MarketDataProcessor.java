@@ -8,13 +8,13 @@ import java.util.List;
 /**
  * Created by Dylan on 18/02/2015.
  */
-public class MarketDataProcessor {
+public class MarketDataProcessor implements Runnable {
 
     private final static String SEPERATOR = ",";
 
     List<Processor> processors = new ArrayList<>();
 
-    public void PopulateProcessors (String dataProviders) {
+    public MarketDataProcessor(String dataProviders) {
         final String[] dataProvidersArray = dataProviders.split(SEPERATOR);
         for (String provider : dataProvidersArray){
             final MarketDataProvidersEnum dataProvider = MarketDataProvidersEnum.valueOf(provider);
@@ -33,4 +33,15 @@ public class MarketDataProcessor {
         }
     }
 
+    @Override
+    public void run() {
+        while (true) {
+            ProcessMarketData();
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

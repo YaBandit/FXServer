@@ -15,12 +15,18 @@ public class Baseplate {
         marketDataStore = LordOfTheBeans.getLordOfTheBeans();
         instantiateMarketData();
 
-        //MarketDataProcessor marketDataProcessor = new MarketDataProcessor();
-        //marketDataProcessor.PopulateProcessors(args[0]);
-        //marketDataProcessor.ProcessMarketData();
+        startMarketDataThread(args[0]);
 
-        SocketController sc = new SocketController();
-        sc.StartSockets();
+        while (true) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //SocketController sc = new SocketController();
+        //sc.StartSockets();
 
     }
 
@@ -28,6 +34,10 @@ public class Baseplate {
 
     private static void instantiateMarketData() {
         marketDataStore.instantiateMasterBeans();
+    }
+
+    private static void startMarketDataThread(String dataProviders) {
+        new Thread(new MarketDataProcessor(dataProviders)).start();
     }
 
 }
