@@ -1,8 +1,10 @@
 import DataStore.LordOfTheBeans;
+import Library.CurrencySymbols;
+import LightFormatData.FXTables;
 import Processor.MarketDataProcessor;
-import Sockets.SocketController;
-
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -34,6 +36,12 @@ public class Baseplate {
 
     private static void instantiateMarketData() {
         marketDataStore.instantiateMasterBeans();
+        List<CurrencySymbols> fxSymbols = new ArrayList<>();
+        for (CurrencySymbols symbol : CurrencySymbols.values()) {
+            fxSymbols.add(symbol);
+        }
+        FXTables fxTables = FXTables.getInstance();
+        fxTables.instantiateFXTable(fxSymbols);
     }
 
     private static void startMarketDataThread(String dataProviders) {

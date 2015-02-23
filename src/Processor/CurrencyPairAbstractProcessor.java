@@ -2,6 +2,7 @@ package Processor;
 
 import DataStore.*;
 import Library.CurrencySymbols;
+import LightFormatData.FXTables;
 
 /**
  * Created by Dylan on 19/02/2015.
@@ -9,6 +10,7 @@ import Library.CurrencySymbols;
 public abstract class CurrencyPairAbstractProcessor {
 
     private CurrencyPairMasterBean currencyPairBeanMaster = (CurrencyPairMasterBean) LordOfTheBeans.getLordOfTheBeans().getChildBean(AssetClass.CURRENCYPAIR.toString());
+    private FXTables fxTables = FXTables.getInstance();
 
     public void addDataToStore (CurrencySymbols symbol1, CurrencySymbols symbol2, double ratio2) {
         CurrencyPairBean currencyPairBean = (CurrencyPairBean) currencyPairBeanMaster.getChildBean(symbol1.toString() + symbol2.toString());
@@ -17,6 +19,8 @@ public abstract class CurrencyPairAbstractProcessor {
             currencyPairBeanMaster.addChildBean(currencyPairBean);
         }
         updateDataStore(currencyPairBean, ratio2);
+
+        fxTables.updateData(symbol1, symbol2, ratio2);
     }
 
     public void updateDataStore (CurrencyPairBean bean, double ratio2) {

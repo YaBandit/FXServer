@@ -47,20 +47,19 @@ public class YahooProcessor extends CurrencyPairAbstractProcessor implements Pro
 
     @Override
     public void GetMarketData() {
-        Iterator iterator = currencyUrlCalls.entrySet().iterator();
+        final Iterator iterator = currencyUrlCalls.entrySet().iterator();
         while (iterator.hasNext()) {
-            Map.Entry pair = (Map.Entry) iterator.next();
-            String[] result = PingCurrencyPairAPI((String) pair.getKey(), (String) pair.getValue());
+            final Map.Entry pair = (Map.Entry) iterator.next();
+            final String[] result = PingCurrencyPairAPI((String) pair.getKey(), (String) pair.getValue());
             processData(result);
-            //currencyMarketData.put((String) pair.getKey(), result);
         }
     }
 
     @Override
     public String[] PingCurrencyPairAPI(String pair, String url) {
         InputStream connection = null;
-        String[] fields = new String[4];
-        String[] pairArray = pair.split(YahooApiOperators.colon);
+        final String[] fields = new String[4];
+        final String[] pairArray = pair.split(YahooApiOperators.colon);
         fields[0] = pairArray[0];
         fields[1] = pairArray[1];
 
@@ -80,9 +79,9 @@ public class YahooProcessor extends CurrencyPairAbstractProcessor implements Pro
     }
 
     public void processData(String[] result) {
-        CurrencySymbols symbol1 = CurrencySymbols.valueOf(result[0]);
-        CurrencySymbols symbol2 = CurrencySymbols.valueOf(result[1]);
-        double ratio = Double.parseDouble(result[3]);
+        final CurrencySymbols symbol1 = CurrencySymbols.valueOf(result[0]);
+        final CurrencySymbols symbol2 = CurrencySymbols.valueOf(result[1]);
+        final double ratio = Double.parseDouble(result[3]);
         addDataToStore(symbol1, symbol2, ratio);
     }
 
